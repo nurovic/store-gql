@@ -1,5 +1,6 @@
-const {userResolver} = require("./user")
+const user = require('./user')
+const Mutation = {
+  ...user
+};
 
-module.exports = {
-    ...userResolver
-}
+module.exports = Mutation

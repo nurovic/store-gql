@@ -1,8 +1,13 @@
-const User = require('../../models/userModel')
+const User = require("../../models/userModel");
 
-const userResolvers = {
-    hello: () => "23"
+const Mutation = {
+  
+  createUser: async (parent, {name}, context) => {
+    console.log(name)
+    const user = await User.create({name});
+    console.log(user)
+    return user;
+  },
+};
 
-}
-
-exports.module = {userResolvers}
+module.exports = Mutation
