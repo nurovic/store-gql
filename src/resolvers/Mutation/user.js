@@ -1,13 +1,15 @@
 const User = require("../../models/userModel");
 
 const Mutation = {
-  
-  createUser: async (parent, {name}, context) => {
-    console.log(name)
-    const user = await User.create({name});
-    console.log(user)
+  createUser: async (parent, { createUserInput }, context) => {
+    const { name, email, password } = createUserInput;
+    const user = await User.create({
+      name,
+      email,
+      password,
+    });
     return user;
   },
 };
 
-module.exports = Mutation
+module.exports = Mutation;

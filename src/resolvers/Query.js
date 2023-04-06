@@ -1,5 +1,10 @@
+const UserDB = require( '../models/userModel')
+
 const Query = {
-    hello: () => "23"
+    users:async  () => {
+        const users = await UserDB.find({})
+        return users
+    } 
 }
 
 module.exports = {Query}
