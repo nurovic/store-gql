@@ -41,6 +41,7 @@ exports.typeDefs = gql`
     _id: ID!
     name: String!
     email: String!
+    products: [ProductData!]!
   }
 
   

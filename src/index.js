@@ -2,7 +2,7 @@ const {ApolloServer, gql} = require( "apollo-server");
 const dotenv = require('dotenv')
 const connectDB = require('./databse')
 const {typeDefs} = require('./schema')
-const {  Query, Mutation } = require('./resolvers')
+const {  Query, Mutation, User } = require('./resolvers')
 
 dotenv.config()
 
@@ -12,6 +12,7 @@ const server = new ApolloServer({
     resolvers: {
         Query,
         Mutation,
+        User
     }
 })
 

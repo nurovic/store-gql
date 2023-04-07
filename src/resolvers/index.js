@@ -1,4 +1,4 @@
 const {Query} = require("./Query")
-const {Product} = require("./Product")
+const {User} = require("./User")
 const Mutation = require('./Mutation/Mutation')
-module.exports = {Query, Product, Mutation}
+module.exports = {Query, User, Mutation}
