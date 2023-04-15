@@ -6,6 +6,10 @@ const Query = {
         const users = await UserDB.find({})
         return users
     },
+    // userById: async (_, {id}) => {
+    //     const user = await UserDB.findById(id)
+    //     return user
+    // },
     productById: async (_, {id}) => {
         const product = await ProductDB.findById(id)
         return product

@@ -1,7 +1,8 @@
 const User = {
-  products:async (parent, _, {ProductDB}) => {  
+  products:async (parent, _, {db}) => {  
+    const product = db.ProductDB
+    const res = await product.find({userId: parent._id})
     
-    const res = await ProductDB.find({userId: parent._id})
     return res
   },
 };

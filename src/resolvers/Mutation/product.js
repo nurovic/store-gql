@@ -1,21 +1,24 @@
 const ProductDB = require("../../models/productModel");
 
 const Product = {
-  createProduct: async (parent, { createProductInput }, context) => {
+  createProduct: async (parent, { createProductInput }, {db}) => {
+    const product = db.ProductDB
     const { 
         productName,
         description,
         price,
-        count, } = createProductInput;
+        count, 
+        userId
+    } = createProductInput;
         
-    const product = await ProductDB.create({
+    const resProduct = await product.create({
         productName,
         description,
         price,
         count,
-        userId: ("642f111be9039b3f8b78de8b") 
+        userId
     });
-    return product;
+    return resProduct;
   },
 };
 

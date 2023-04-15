@@ -3,13 +3,13 @@ const { gql } = require("apollo-server");
 exports.typeDefs = gql`
   type Query {
     users: [User!]!
-    productById(id: String!): ProductData! 
-    products: [ProductData!] 
+    productById(id: String!): Product! 
+    products: [Product!] 
   }
 
   type Mutation {
     createUser(createUserInput: CreateUserInput!): UserData!
-    createProduct(createProductInput: CreateProductInput!): ProductData!
+    createProduct(createProductInput: CreateProductInput!): Product!
   }
 
   input CreateUserInput{
@@ -23,16 +23,19 @@ exports.typeDefs = gql`
     description: String!,
     price: Int!,
     count: Int!,
+    userId: String!
   }
 
-  type ProductData {
+  type Product {
     _id: ID!
     productName: String!,
     description: String!,
     price: Int!,
     count: Int!,
+    user: UserData!
   }
   type UserData {
+    _id: ID!
     name: String
     email: String
   }
@@ -41,8 +44,8 @@ exports.typeDefs = gql`
     _id: ID!
     name: String!
     email: String!
-    products: [ProductData!]!
+    products: [Product!]!
   }
 
-  
+
 `;
