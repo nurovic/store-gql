@@ -10,7 +10,7 @@ exports.typeDefs = gql`
   type Mutation {
     createUser(createUserInput: CreateUserInput!): UserData!
     createProduct(productInput: ProductInput!): ProductPayload!
-    # updateProduct(: CreateProductInput!): Product!
+    updateProduct(productId: ID!, productInput: ProductInput!):  ProductPayload!
     makeComment(createReviewInput: CreateReviewInput!): Comment!
   }
 

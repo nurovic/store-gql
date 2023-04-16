@@ -39,10 +39,21 @@ const Product = {
     };
   },
 
-  // updateProduct: async (_, {}, {db}) => {
-  //   const product = db.ProductDB
+  updateProduct: async (_, {productId, productInput}, {db}) => {
+    const productdb = db.ProductDB
 
-  // }
+    const reqObj = {...productInput}
+
+    const query = { _id: productId };
+    const updateFields = { $set: reqObj };
+    const options = { returnOriginal: false };
+    const product = await productdb.findOneAndUpdate(query, updateFields, options);
+
+    return {
+      userErrors: [],
+      product
+    };
+  }
 };
 
 module.exports = Product;
