@@ -10,6 +10,14 @@ exports.typeDefs = gql`
   type Mutation {
     createUser(createUserInput: CreateUserInput!): UserData!
     createProduct(createProductInput: CreateProductInput!): Product!
+    makeComment(createReviewInput: CreateReviewInput!): Comment!
+  }
+
+  input CreateReviewInput{
+    userId: String!,
+    productId: String!,
+    comment: String!,
+
   }
 
   input CreateUserInput{
@@ -26,6 +34,10 @@ exports.typeDefs = gql`
     userId: String!
   }
 
+  type Comment {
+    comment: String!
+  }
+
   type Product {
     _id: ID!
     productName: String!,
@@ -33,6 +45,13 @@ exports.typeDefs = gql`
     price: Int!,
     count: Int!,
     user: UserData!
+    reviews:[Review!]!
+  }
+
+  type Review {
+    _id: ID!
+    userId: UserData!
+    comment: String!
   }
   type UserData {
     _id: ID!

@@ -12,10 +12,10 @@ const ProductSchema = new Mongoose.Schema(
     price: Number,
     count: Number,
     // Sale Booelan
-    reviewId: [
+    reviews: [
       {
         type: Mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "Review",
         autopopulate: { maxDepth: 2 },
       },
     ],

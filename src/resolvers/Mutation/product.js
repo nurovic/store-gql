@@ -1,5 +1,3 @@
-const ProductDB = require("../../models/productModel");
-
 const Product = {
   createProduct: async (parent, { createProductInput }, {db}) => {
     const product = db.ProductDB
