@@ -9,7 +9,8 @@ exports.typeDefs = gql`
 
   type Mutation {
     createUser(createUserInput: CreateUserInput!): UserData!
-    createProduct(createProductInput: CreateProductInput!): Product!
+    createProduct(productInput: ProductInput!): ProductPayload!
+    # updateProduct(: CreateProductInput!): Product!
     makeComment(createReviewInput: CreateReviewInput!): Comment!
   }
 
@@ -26,18 +27,26 @@ exports.typeDefs = gql`
     password: String!
   }
 
-  input CreateProductInput {
-    productName: String!,
-    description: String!,
-    price: Int!,
-    count: Int!,
-    userId: String!
+  input ProductInput {
+    productName: String,
+    description: String,
+    price: Int,
+    count: Int,
+    userId: String
   }
 
   type Comment {
     comment: String!
   }
 
+  type UserError {
+    message: String!
+  }
+
+  type ProductPayload {
+    userErrors: [UserError!]!
+    product: Product
+  }
   type Product {
     _id: ID!
     productName: String!,
