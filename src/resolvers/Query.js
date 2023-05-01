@@ -17,6 +17,10 @@ const Query = {
     products: async () => {
         const products = await ProductDB.find()
         return products
+    },
+    getMe: async(parent, _, context ) => {
+        console.log("PARENT", parent)
+        console.log("CONTEXRT", context)
     }
 }
 

@@ -5,15 +5,24 @@ exports.typeDefs = gql`
     users: [User!]!
     productById(id: String!): Product! 
     products: [Product!] 
+    getMe: User
   }
 
   type Mutation {
-    createUser(createUserInput: CreateUserInput!): UserData!
+    createUser(createUserInput: CreateUserInput!): UserPayload!
     createProduct(productInput: ProductInput!): ProductPayload!
     updateProduct(productId: ID!, productInput: ProductInput!):  ProductPayload!
     makeComment(createReviewInput: CreateReviewInput!): Comment!
+    signin(credentials: CredentialsInput!): AuthPayload!
   }
-
+  input CredentialsInput {
+    email: String!
+    password: String!
+  }
+  type AuthPayload {
+    userErrors: [UserError!]!
+    token: String
+  }
   input CreateReviewInput{
     userId: String!,
     productId: String!,
@@ -62,10 +71,15 @@ exports.typeDefs = gql`
     userId: UserData!
     comment: String!
   }
+  type UserPayload {
+    userErrors: [UserError!]!
+    user: UserData
+  }
   type UserData {
     _id: ID!
     name: String
     email: String
+    token: String
   }
 
   type User {
