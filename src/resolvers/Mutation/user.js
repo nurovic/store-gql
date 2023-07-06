@@ -66,7 +66,7 @@ const Mutation = {
 
     if (!user) {
       return {
-        userErrors: [{ message: "Invalid credentials" }],
+        userErrors: [{ message: "The Not Find" }],
         token: null,
       };
     }
@@ -75,15 +75,20 @@ const Mutation = {
 
     if (!isMatch) {
       return {
-        userErrors: [{ message: "Invalid credentials" }],
+        userErrors: [{ message: "Password Wrong" }],
         token: null,
       };
     }
+
+    const token =  JWT.sign({ userId: user.id }, process.env.JWT_SECRET, {
+
+      expiresIn: 3600000,
+    })
     return {
       userErrors: [],
-      token: JWT.sign({ userId: user.id }, process.env.JWT_SECRET, {
-        expiresIn: 3600000,
-      }),
+      user,
+
+      token
     };
   },
 };

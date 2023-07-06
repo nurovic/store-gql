@@ -3,7 +3,7 @@ const { gql } = require("apollo-server");
 exports.typeDefs = gql`
   type Query {
     users: [User!]!
-    productById(id: String!): Product! 
+    productById(id: ID!): Product! 
     products: [Product!] 
     getMe: User
   }
@@ -21,6 +21,7 @@ exports.typeDefs = gql`
   }
   type AuthPayload {
     userErrors: [UserError!]!
+    user: UserData
     token: String
   }
   input CreateReviewInput{
@@ -79,7 +80,6 @@ exports.typeDefs = gql`
     _id: ID!
     name: String
     email: String
-    token: String
   }
 
   type User {
