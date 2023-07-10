@@ -4,6 +4,7 @@ const connectDB = require('./databse')
 const {typeDefs} = require('./schema')
 const { Query, Mutation, User, Product } = require('./resolvers')
 const {ProductDB, UserDB, ReviewDB} = require( './models')
+const { getUserFromToken } = require('./utilits/getUserFromToken')
 
 dotenv.config()
 const db ={ ProductDB, UserDB, ReviewDB}
@@ -15,7 +16,14 @@ const server = new ApolloServer({
         User,
         Product
     },
-    context: {db}
+    context: async ({ req }) => {
+        const userInfo = await getUserFromToken(req.headers.authorization);
+    
+        return {
+          db,
+          userInfo,
+        };
+      },
 })
 
 connectDB()
