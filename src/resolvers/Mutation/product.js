@@ -1,20 +1,19 @@
 const Product = {
-  createProduct: async (parent, { productInput }, {db}) => {
+  createProduct: async (parent, { productInput }, {db, userInfo}) => {
+    console.log(userInfo)
     const productdb = db.ProductDB
     const { 
       productName,
       description,
       price,
       count, 
-      userId
     } = productInput;
     
     if(
       !productName || 
       !description || 
       !price || 
-      !count ||  
-      !userId
+      !count
     ){
       return {
         userErrors: [
@@ -31,7 +30,7 @@ const Product = {
         description,
         price,
         count,
-        userId
+        userId: userInfo.userId
     });
     return {
       userErrors: [],
