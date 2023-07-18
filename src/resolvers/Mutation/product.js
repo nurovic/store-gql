@@ -1,6 +1,5 @@
 const Product = {
   createProduct: async (parent, { productInput }, {db, userInfo}) => {
-    console.log(userInfo)
     const productdb = db.ProductDB
     const { 
       productName,

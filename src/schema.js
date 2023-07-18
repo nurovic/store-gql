@@ -5,6 +5,7 @@ exports.typeDefs = gql`
     users: [User!]!
     productById(id: ID!): Product! 
     products: [Product!] 
+    ownProducts: [Product!] 
     getMe: User
   }
 

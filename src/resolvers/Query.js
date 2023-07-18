@@ -1,6 +1,5 @@
 const UserDB = require("../models/userModel");
 const ProductDB = require("../models/productModel");
-const jwt = require("jsonwebtoken");
 
 const Query = {
   users: async () => {
@@ -17,6 +16,10 @@ const Query = {
   },
   products: async () => {
     const products = await ProductDB.find();
+    return products;
+  },
+  ownProducts: async (_, { id }, {userInfo}) => {
+    const products = await ProductDB.find({ userId: userInfo.userId });
     return products;
   },
   getMe: async (parent, _, context) => {
