@@ -1,20 +1,15 @@
-
 const Review = {
-  makeComment: async (parent, {createReviewInput}, { db }) => {
-    const ReviewDB = db.ReviewDB
+  makeComment: async (parent, { createReviewInput }, { db, userInfo }) => {
+    const ReviewDB = db.ReviewDB;
 
-    const {
-        userId,
-        productId,
-        comment
-    } = createReviewInput
+    const { productId, comment } = createReviewInput;
 
     const resReview = await ReviewDB.create({
-        userId,
-        productId,
-        comment
-    })
-    return resReview
+      productId,
+      comment,
+      userId: userInfo.userId,
+    });
+    return resReview;
   },
 };
 

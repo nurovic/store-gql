@@ -26,7 +26,6 @@ exports.typeDefs = gql`
     token: String
   }
   input CreateReviewInput{
-    userId: String!,
     productId: String!,
     comment: String!,
 
