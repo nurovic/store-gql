@@ -3,17 +3,19 @@ const { gql } = require("apollo-server");
 exports.typeDefs = gql`
   type Query {
     users: [User!]!
-    productById(id: ID!): Product! 
-    products: [Product!] 
-    ownProducts: [Product!] 
+    productById(id: ID!): Product!
+    products: [Product!]
+    ownProducts: [Product!]
+    getOrderCard: OrderCard!
     getMe: User
   }
 
   type Mutation {
     createUser(createUserInput: CreateUserInput!): UserPayload!
     createProduct(productInput: ProductInput!): ProductPayload!
-    updateProduct(productId: ID!, productInput: ProductInput!):  ProductPayload!
+    updateProduct(productId: ID!, productInput: ProductInput!): ProductPayload!
     makeComment(createReviewInput: CreateReviewInput!): Comment!
+    createOrderCard(createOrderCardInput: CreateOrderCardInput!): OrderCardPayload!
     signin(credentials: CredentialsInput!): AuthPayload!
   }
   input CredentialsInput {
@@ -25,23 +27,26 @@ exports.typeDefs = gql`
     user: UserData
     token: String
   }
-  input CreateReviewInput{
-    productId: String!,
-    comment: String!,
-
+  input CreateReviewInput {
+    productId: String!
+    comment: String!
   }
 
-  input CreateUserInput{
+  input CreateOrderCardInput {
+    productId: String!
+  }
+
+  input CreateUserInput {
     name: String!
     email: String!
     password: String!
   }
 
   input ProductInput {
-    productName: String,
-    description: String,
-    price: Int,
-    count: Int,
+    productName: String
+    description: String
+    price: Int
+    count: Int
     userId: String
   }
 
@@ -57,15 +62,20 @@ exports.typeDefs = gql`
     userErrors: [UserError!]!
     product: Product
   }
+  type OrderCardPayload {
+    userErrors: [UserError!]!
+    product: Product
+  }
   type Product {
     _id: ID!
-    productName: String!,
-    description: String!,
-    price: Int!,
-    count: Int!,
+    productName: String!
+    description: String!
+    price: Int!
+    count: Int!
     user: UserData!
-    reviews:[Review!]!
+    reviews: [Review!]!
   }
+
 
   type Review {
     _id: ID!
@@ -88,6 +98,10 @@ exports.typeDefs = gql`
     email: String!
     products: [Product!]!
   }
+  type OrderCard {
+    totalPrice: String
+    products: [Product!]!
+    piece: String
 
-
+  }
 `;

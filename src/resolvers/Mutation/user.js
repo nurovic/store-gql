@@ -42,12 +42,12 @@ const Mutation = {
       if (user) {
         return {
           userErrors: [],
-          user : {
+          user: {
             _id: user.id,
             name: user.name,
             email: user.email,
             token: generateToken(user._id),
-          }
+          },
         };
       } else {
         throw new Error("Invalid user data");
@@ -80,18 +80,15 @@ const Mutation = {
       };
     }
 
-    const token =  JWT.sign({ userId: user.id }, process.env.JWT_SECRET, {
-
+    const token = JWT.sign({ userId: user.id }, process.env.JWT_SECRET, {
       expiresIn: 3600000,
-    })
+    });
     return {
       userErrors: [],
       user,
-
-      token
+      token,
     };
   },
 };
 
 module.exports = Mutation;
-

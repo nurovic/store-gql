@@ -28,6 +28,26 @@ const Query = {
     ).select("-password");
     return res;
   },
+  getOrderCard: async (parent,_, {db, userInfo}) => {
+    try {
+     
+    const orderCard = db.OrderCardDB
+    
+
+    const res = await orderCard.find({userId: userInfo.userId})
+      const resFilter = res.map((obj) => obj.productId)
+      const amount = resFilter.reduce((acc, val) => {
+        return acc + val.price
+      }, 0)
+    return {
+      products: resFilter,  
+      totalPrice: amount,
+      piece: resFilter.length
+    }
+    } catch (error) {
+      console.log("get Order Card:", error  )
+    }
+  }
 };
 
 module.exports = { Query };
