@@ -18,7 +18,7 @@ const Query = {
     const products = await ProductDB.find();
     return products;
   },
-  ownProducts: async (_, { id }, {userInfo}) => {
+  ownProducts: async (_, { id }, { userInfo }) => {
     const products = await ProductDB.find({ userId: userInfo.userId });
     return products;
   },
@@ -28,26 +28,21 @@ const Query = {
     ).select("-password");
     return res;
   },
-  getOrderCard: async (parent,_, {db, userInfo}) => {
+  getOrderCard: async (parent, _, { db, userInfo }) => {
     try {
-     
-    const orderCard = db.OrderCardDB
-    
+      const orderCard = db.OrderCardDB;
 
-    const res = await orderCard.find({userId: userInfo.userId})
-      const resFilter = res.map((obj) => obj.productId)
-      const amount = resFilter.reduce((acc, val) => {
-        return acc + val.price
-      }, 0)
-    return {
-      products: resFilter,  
-      totalPrice: amount,
-      piece: resFilter.length
-    }
+      const product = await orderCard.find({ userId: userInfo.userId });
+      // const resFilter = res.filter((obj) => obj.productId );
+      // const resFilterId = res.filter((obj) => obj._id);
+      // const amount = resFilter.reduce((acc, val) => {
+      //   return acc + val.price;
+      // }, 0);
+      return product ;
     } catch (error) {
-      console.log("get Order Card:", error  )
+      console.log("get Order Card:", error);
     }
-  }
+  },
 };
 
 module.exports = { Query };

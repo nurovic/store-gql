@@ -6,7 +6,7 @@ exports.typeDefs = gql`
     productById(id: ID!): Product!
     products: [Product!]
     ownProducts: [Product!]
-    getOrderCard: OrderCard!
+    getOrderCard: [OrderProduct]!
     getMe: User
   }
 
@@ -15,8 +15,13 @@ exports.typeDefs = gql`
     createProduct(productInput: ProductInput!): ProductPayload!
     updateProduct(productId: ID!, productInput: ProductInput!): ProductPayload!
     makeComment(createReviewInput: CreateReviewInput!): Comment!
-    createOrderCard(createOrderCardInput: CreateOrderCardInput!): OrderCardPayload!
+    createOrderCard(
+      createOrderCardInput: CreateOrderCardInput!
+    ): OrderCardPayload!
     signin(credentials: CredentialsInput!): AuthPayload!
+    deleteOrderCardProduct(
+      deleteOrderCardInput: DeleteOrderCardInput!
+    ): OrderCardPayload!
   }
   input CredentialsInput {
     email: String!
@@ -31,9 +36,12 @@ exports.typeDefs = gql`
     productId: String!
     comment: String!
   }
+  input DeleteOrderCardInput {
+    orderCardId: String!
+  }
 
   input CreateOrderCardInput {
-    productId: String!
+    product: String!
   }
 
   input CreateUserInput {
@@ -75,8 +83,6 @@ exports.typeDefs = gql`
     user: UserData!
     reviews: [Review!]!
   }
-
-
   type Review {
     _id: ID!
     userId: UserData!
@@ -85,6 +91,9 @@ exports.typeDefs = gql`
   type UserPayload {
     userErrors: [UserError!]!
     user: UserData
+  }
+  type OrderCardPayload {
+    userErrors: [UserError!]!
   }
   type UserData {
     _id: ID!
@@ -98,10 +107,15 @@ exports.typeDefs = gql`
     email: String!
     products: [Product!]!
   }
+  type OrderProduct {
+    product: Product!
+    user: [User!]!
+    _id: ID!
+  }
   type OrderCard {
+    _id: ID!
     totalPrice: String
-    products: [Product!]!
+    product: [OrderProduct!]!
     piece: String
-
   }
 `;

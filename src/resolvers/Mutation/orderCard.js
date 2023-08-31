@@ -1,14 +1,10 @@
 const OrderCard = {
-  createOrderCard: async (
-    parent,
-    { createOrderCardInput },
-    { db, userInfo }
-  ) => {
+  createOrderCard: async (_, { createOrderCardInput }, { db, userInfo }) => {
     try {
       const OrderCardDB = db.OrderCardDB;
-      const { productId } = createOrderCardInput;
+      const { product } = createOrderCardInput;
 
-      if (!productId) {
+      if (!product) {
         return {
           userErrors: [
             {
@@ -19,7 +15,7 @@ const OrderCard = {
         };
       }
       const resOrderCard = await OrderCardDB.create({
-        productId,
+        product,
         userId: userInfo.userId,
       });
       return {
@@ -28,10 +24,29 @@ const OrderCard = {
             message: "Product Added To Order Card",
           },
         ],
-        product: resOrderCard.productId,
+        product: resOrderCard.product,
       };
     } catch (error) {
       console.log("Create Order Card:", error);
+    }
+  },
+
+  deleteOrderCardProduct: async (
+    parent,
+    { deleteOrderCardInput },
+    { db, userInfo } 
+  ) => {
+    try {
+      const orderCard = db.OrderCardDB;
+      const { orderCardId } = deleteOrderCardInput;
+      const res = await orderCard.deleteOne({_id: orderCardId});
+      return {
+        userErrors: [
+          {message: "Order Card Deleted"}
+        ]
+      }
+    } catch (error) {
+      console.log("Delete Order Card Product:", error);
     }
   },
 };

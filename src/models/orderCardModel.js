@@ -7,7 +7,7 @@ const OrderCardSchema = new Mongoose.Schema(
       ref: "User",
       autopopulate: { maxDepth: 2 },
     },
-    productId: {
+    product: {
       type: Mongoose.Schema.Types.ObjectId,
       ref: "Product",
       autopopulate: { maxDepth: 2 },
