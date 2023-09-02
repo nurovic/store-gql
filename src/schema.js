@@ -6,7 +6,7 @@ exports.typeDefs = gql`
     productById(id: ID!): Product!
     products: [Product!]
     ownProducts: [Product!]
-    getOrderCard: [OrderProduct]!
+    getOrderCard: OrderCard!
     getMe: User
   }
 
@@ -109,13 +109,11 @@ exports.typeDefs = gql`
   }
   type OrderProduct {
     product: Product!
-    user: [User!]!
     _id: ID!
   }
   type OrderCard {
-    _id: ID!
-    totalPrice: String
-    product: [OrderProduct!]!
+    product: [OrderProduct]!
+    amount: String
     piece: String
   }
 `;

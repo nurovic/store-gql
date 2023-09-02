@@ -33,12 +33,10 @@ const Query = {
       const orderCard = db.OrderCardDB;
 
       const product = await orderCard.find({ userId: userInfo.userId });
-      // const resFilter = res.filter((obj) => obj.productId );
-      // const resFilterId = res.filter((obj) => obj._id);
-      // const amount = resFilter.reduce((acc, val) => {
-      //   return acc + val.price;
-      // }, 0);
-      return product ;
+      const amount = product.reduce((acc, val) => {
+        return acc + val.product.price;
+      }, 0);
+      return { product: product, amount: amount, piece: product.length };
     } catch (error) {
       console.log("get Order Card:", error);
     }
