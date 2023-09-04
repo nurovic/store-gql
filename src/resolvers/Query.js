@@ -33,10 +33,45 @@ const Query = {
       const orderCard = db.OrderCardDB;
 
       const product = await orderCard.find({ userId: userInfo.userId });
+        const groupedProducts = {};
+      product.forEach((product) => {
+        const productId = product.product._id.toString();
+        if (!groupedProducts[productId]) {
+          groupedProducts[productId] = {
+          
+          ...product._doc,
+            orderCount: 0,
+          };
+        }
+        groupedProducts[productId].orderCount++;
+      });
+      const updatedProducts = Object.values(groupedProducts);
+
+      //       const uniqueProducts = {};
+
+      //  product.forEach(item => {
+      //   const productId = item.product._id;
+      //   if (!uniqueProducts[productId]) {
+      //     uniqueProducts[productId] = {
+      //      product: item.product._doc,
+      //       orderCount: 1
+      //     };
+      //   } else {
+      //     uniqueProducts[productId].orderCount++;
+      //   }
+      // });
+      // const uniqueProductArray = Object.values(uniqueProducts);
+      console.log(updatedProducts);
+      // console.log(product)
+
       const amount = product.reduce((acc, val) => {
         return acc + val.product.price;
       }, 0);
-      return { product: product, amount: amount, piece: product.length };
+      return {
+        product: updatedProducts,
+        amount: amount,
+        piece: product.length,
+      };
     } catch (error) {
       console.log("get Order Card:", error);
     }

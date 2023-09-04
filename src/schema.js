@@ -110,6 +110,7 @@ exports.typeDefs = gql`
   type OrderProduct {
     product: Product!
     _id: ID!
+    orderCount: Int!
   }
   type OrderCard {
     product: [OrderProduct]!
