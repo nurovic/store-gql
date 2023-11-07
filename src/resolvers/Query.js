@@ -33,14 +33,13 @@ const Query = {
       const orderCard = db.OrderCardDB;
 
       const product = await orderCard.find({ userId: userInfo.userId });
-        const groupedProducts = {};
-      product.forEach((product) => {
-        const productId = product.product._id.toString();
+      const groupedProducts = {};
+      product?.forEach((product) => {
+        const productId = product.product._id
         if (!groupedProducts[productId]) {
           groupedProducts[productId] = {
-          
-          ...product._doc,
-            orderCount: 0,
+            ...product._doc,
+            orderCount: product.orderCount,
           };
         }
         groupedProducts[productId].orderCount++;

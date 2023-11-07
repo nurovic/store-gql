@@ -12,6 +12,7 @@ const OrderCardSchema = new Mongoose.Schema(
       ref: "Product",
       autopopulate: { maxDepth: 2 },
     },
+    orderCount: Number
   },
   { versionKey: false }
 );

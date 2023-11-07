@@ -13,6 +13,7 @@ exports.typeDefs = gql`
   type Mutation {
     createUser(createUserInput: CreateUserInput!): UserPayload!
     createProduct(productInput: ProductInput!): ProductPayload!
+    orderCardUpdate(productId: ID!, orderInput: OrderInput!):OrderCardPayload!
     updateProduct(productId: ID!, productInput: ProductInput!): ProductPayload!
     makeComment(createReviewInput: CreateReviewInput!): Comment!
     createOrderCard(
@@ -57,7 +58,9 @@ exports.typeDefs = gql`
     count: Int
     userId: String
   }
-
+input OrderInput {
+  count: Boolean
+}
   type Comment {
     comment: String!
   }
@@ -68,11 +71,13 @@ exports.typeDefs = gql`
 
   type ProductPayload {
     userErrors: [UserError!]!
-    product: Product
+    product: Product!
   }
   type OrderCardPayload {
     userErrors: [UserError!]!
-    product: Product
+    product: Product!
+    orderCount: Int!
+
   }
   type Product {
     _id: ID!
@@ -116,5 +121,6 @@ exports.typeDefs = gql`
     product: [OrderProduct]!
     amount: String
     piece: String
+    orderCount: Int!
   }
 `;
