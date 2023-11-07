@@ -19,13 +19,11 @@ const ProductSchema = new Mongoose.Schema(
         autopopulate: { maxDepth: 2 },
       },
     ],
-    category: [
-      {
-        type: Mongoose.Schema.Types.ObjectId,
-        ref: "Category",
-        autopopulate: { maxDepth: 2 },
-      },
-    ],
+    categoryId: {
+      type: Mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      autopopulate: { maxDepth: 2 },
+    },
   },
   { versionKey: false }
 );

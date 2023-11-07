@@ -8,6 +8,7 @@ exports.typeDefs = gql`
     products: [Product!]
     ownProducts: [Product!]
     getOrderCard: OrderCard!
+    productListCategory(queryCategoryInput: QueryCategoryInput!): [Product!]!
     getMe: User
   }
 
@@ -39,6 +40,9 @@ exports.typeDefs = gql`
     productId: String!
     comment: String!
   }
+  input QueryCategoryInput {
+    categoryId: String!
+  }
   input DeleteOrderCardInput {
     orderCardId: String!
   }
@@ -61,6 +65,7 @@ exports.typeDefs = gql`
     price: Int
     count: Int
     userId: String
+    categoryId: String!
   }
 input OrderInput {
   count: Boolean
@@ -83,6 +88,10 @@ input OrderInput {
     orderCount: Int!
 
   }
+  type Category {
+    _id: ID!
+    categoryTitle: String
+  }
   type Product {
     _id: ID!
     productName: String!
@@ -90,6 +99,7 @@ input OrderInput {
     price: Int!
     count: Int!
     user: UserData!
+    categoryId: Category!
     reviews: [Review!]!
   }
   type Review {

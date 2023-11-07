@@ -33,6 +33,18 @@ const Query = {
     ).select("-password");
     return res;
   },
+  productListCategory: async(parent, {queryCategoryInput}, {db}) => {
+    const categoryList = db.ProductDB
+    const {categoryId} = queryCategoryInput
+    const products = await categoryList.find({
+      categoryId:{
+      _id: categoryId
+      }
+    })
+    return  products
+    
+
+  },
   getOrderCard: async (parent, _, { db, userInfo }) => {
     try {
       const orderCard = db.OrderCardDB;

@@ -6,6 +6,7 @@ const Product = {
       description,
       price,
       count, 
+      categoryId
     } = productInput;
     
     if(
@@ -23,12 +24,12 @@ const Product = {
         product: null,
       };
     }
-
     const product = await productdb.create({
         productName,
         description,
         price,
         count,
+        categoryId,
         userId: userInfo.userId
     });
     return {

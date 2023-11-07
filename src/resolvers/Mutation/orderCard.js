@@ -13,7 +13,6 @@ const OrderCard = {
         updateFields,
         options
       );
-      console.log(product, "PRODICYT")
       return {
         userErrors: [],
         product
