@@ -3,6 +3,7 @@ const { gql } = require("apollo-server");
 exports.typeDefs = gql`
   type Query {
     users: [User!]!
+    categoryList: [Category!]!
     productById(id: ID!): Product!
     products: [Product!]
     ownProducts: [Product!]
@@ -23,6 +24,7 @@ exports.typeDefs = gql`
     deleteOrderCardProduct(
       deleteOrderCardInput: DeleteOrderCardInput!
     ): OrderCardPayload!
+    createCategory(categoryInput: CreateCategoryInput!): CategoryPayload!
   }
   input CredentialsInput {
     email: String!
@@ -50,7 +52,9 @@ exports.typeDefs = gql`
     email: String!
     password: String!
   }
-
+  input CreateCategoryInput {
+    CategoryTitle: String!
+  }
   input ProductInput {
     productName: String
     description: String
@@ -97,6 +101,11 @@ input OrderInput {
     userErrors: [UserError!]!
     user: UserData
   }
+  type CategoryPayload {
+    userErrors: [UserError!]!
+    category: String
+
+  }
   type OrderCardPayload {
     userErrors: [UserError!]!
   }
@@ -111,6 +120,10 @@ input OrderInput {
     name: String!
     email: String!
     products: [Product!]!
+  }
+  type Category {
+    _id: ID!
+    categoryTitle: String
   }
   type OrderProduct {
     product: Product!

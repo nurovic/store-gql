@@ -1,10 +1,15 @@
 const UserDB = require("../models/userModel");
 const ProductDB = require("../models/productModel");
+const CategoryDB = require("../models/categoryModel");
 
 const Query = {
   users: async () => {
     const users = await UserDB.find({});
     return users;
+  },
+  categoryList: async (_,{},{db}) => {
+    const category = await CategoryDB.find({});
+    return category;
   },
   // userById: async (_, {id}) => {
   //     const user = await UserDB.findById(id)

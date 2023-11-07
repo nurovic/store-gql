@@ -3,11 +3,11 @@ const dotenv = require("dotenv");
 const connectDB = require("./databse");
 const { typeDefs } = require("./schema");
 const { Query, Mutation, User, Product } = require("./resolvers");
-const { ProductDB, UserDB, ReviewDB, OrderCardDB } = require("./models");
+const { ProductDB, UserDB, ReviewDB, OrderCardDB, CategoryDB } = require("./models");
 const { getUserFromToken } = require("./utilits/getUserFromToken");
 
 dotenv.config();
-const db = { ProductDB, UserDB, ReviewDB, OrderCardDB };
+const db = { ProductDB, UserDB, ReviewDB, OrderCardDB, CategoryDB };
 const server = new ApolloServer({
   typeDefs,
   resolvers: {
