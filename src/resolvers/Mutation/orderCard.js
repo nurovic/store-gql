@@ -1,27 +1,20 @@
 const OrderCard = {
-  orderCardUpdate: async (_, { productId, orderInput }, db) => {
-    const OrderCardDB = db.OrderCardDB;
-
-    if (orderInput) {
-      const changeAmount = orderInput ? 1 : -1;
-      const reqObj = { $inc: { orderCount: changeAmount } };
-      const query = { _id: productId };
-      const updateFields = reqObj;
-      const options = { returnOriginal: false };
-      const product = await OrderCardDB.findOneAndUpdate(
-        query,
-        updateFields,
-        options
-      );
-      return {
-        userErrors: [],
-        product
-      };
-
-
-    } else {
-      console.log("false");
-    }
+  orderCardUpdate: async (_, { productId, orderInput }, {db}) => {
+    const orderCardDB = db.OrderCardDB;
+    const changeAmount = orderInput.count ? 1 : -1;
+    const reqObj = { $inc: { orderCount: changeAmount } };
+    const query = { _id: productId };
+    const updateFields = reqObj;
+    const options = { returnOriginal: false };
+    const product = await orderCardDB.findOneAndUpdate(
+      query,
+      updateFields,
+      options
+    );
+    return {
+      userErrors: [],
+      product,
+    };
   },
   createOrderCard: async (_, { createOrderCardInput }, { db, userInfo }) => {
     try {
@@ -38,19 +31,17 @@ const OrderCard = {
           product: null,
         };
       }
-
+      console.log(product, " ID PASDk");
       const checkOrderList = await OrderCardDB.findOne({
         _id: product,
         userId: userInfo.userId,
       });
 
-
-
-      if (checkOrderList === null) {
+      if (checkOrderList == null) {
         const createOrderCard = await OrderCardDB.create({
           product,
           userId: userInfo.userId,
-          orderCount:0,
+          orderCount: 0,
         });
         return {
           userErrors: [
@@ -60,8 +51,12 @@ const OrderCard = {
           ],
           product: createOrderCard.product,
         };
-      }else {
-        const updated = await OrderCard.orderCardUpdate( _, { productId: product, orderInput: true },db);
+      } else {
+        const updated = await OrderCard.orderCardUpdate(
+          _,
+          { productId: product, orderInput: true },
+          db
+        );
         return {
           userErrors: [
             {
@@ -71,7 +66,6 @@ const OrderCard = {
           product: updated.product.product,
         };
       }
-
     } catch (error) {
       console.log("Create Order Card:", error);
     }
