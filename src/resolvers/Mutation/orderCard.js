@@ -46,11 +46,11 @@ const OrderCard = {
 
 
 
-      if (!checkOrderList) {
+      if (checkOrderList === null) {
         const createOrderCard = await OrderCardDB.create({
           product,
           userId: userInfo.userId,
-          count: 1,
+          orderCount:0,
         });
         return {
           userErrors: [
@@ -65,7 +65,7 @@ const OrderCard = {
         return {
           userErrors: [
             {
-              message: "Product Added To Order Card",
+              message: "Product Added To Order Card.",
             },
           ],
           product: updated.product.product,
