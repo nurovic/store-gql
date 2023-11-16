@@ -1,20 +1,25 @@
 const OrderCard = {
   orderCardUpdate: async (_, { productId, orderInput }, {db}) => {
-    const orderCardDB = db.OrderCardDB;
-    const changeAmount = orderInput.count ? 1 : -1;
-    const reqObj = { $inc: { orderCount: changeAmount } };
-    const query = { _id: productId };
-    const updateFields = reqObj;
-    const options = { returnOriginal: false };
-    const product = await orderCardDB.findOneAndUpdate(
-      query,
-      updateFields,
-      options
-    );
-    return {
-      userErrors: [],
-      product,
-    };
+    try {
+      const orderCardDB = db.OrderCardDB;
+      const changeAmount = orderInput.count ? 1 : -1;
+      const reqObj = { $inc: { orderCount: changeAmount } };
+      const query = { _id: productId };
+      const updateFields = reqObj;
+      const options = { returnOriginal: false };
+      const product = await orderCardDB.findOneAndUpdate(
+        query,
+        updateFields,
+        options
+      );
+      return {
+        userErrors: [],
+        product: product.product,
+        orderCount: product.orderCount
+      };
+    } catch (error) {
+      console.log("orderCardUpdate:", error)
+    }
   },
   createOrderCard: async (_, { createOrderCardInput }, { db, userInfo }) => {
     try {
@@ -31,7 +36,6 @@ const OrderCard = {
           product: null,
         };
       }
-      console.log(product, " ID PASDk");
       const checkOrderList = await OrderCardDB.findOne({
         _id: product,
         userId: userInfo.userId,

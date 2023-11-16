@@ -77,11 +77,10 @@ const Query = {
       //   }
       // });
       // const uniqueProductArray = Object.values(uniqueProducts);
-      console.log(updatedProducts);
       // console.log(product)
-
-      const amount = product.reduce((acc, val) => {
-        return acc + val.product.price;
+console.log(updatedProducts)
+      const amount = updatedProducts.reduce((acc, val) => {
+        return acc + (val.product.price * val.orderCount);
       }, 0);
       return {
         product: updatedProducts,
